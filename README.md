@@ -42,4 +42,4 @@ Github - https://github.com/nafisa-am/flex-note-taker
 
 ## Questions
 
-If you have any questions about this project or you would like to connect, then please feel free to contact me on nafisa.am91@gmail.com. This repo can be viewed at
+If you have any questions about this project or you would like to connect, then please feel free to contact me on nafisa.am91@gmail.com. This repo can be viewed at https://github.com/nafisa-am/flex-note-taker
