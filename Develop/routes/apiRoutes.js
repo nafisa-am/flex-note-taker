@@ -1,3 +1,4 @@
+
 // Defining dependencies
 const path = require('path');
 const fs = require('fs');
@@ -13,20 +14,17 @@ let savedNotes = [];
 module.exports = function (app) {
 
   app.get("/api/notes", function (req, res) {
+     savedNotes = [];
 
-    savedNotes = [];
-
-    fs.readFile(outputPath, 'utf8', (err, data) => {
+     fs.readFile(outputPath, 'utf8', (err, data) => {
       if (err) throw err;
-
-      data = JSON.parse(data)
+       data = JSON.parse(data)
 
       for (i = 0; i < data.length; i++) {
         savedNotes.push(data[i]);
       }
       console.log(savedNotes)
-
-      res.send(savedNotes);
+       res.send(savedNotes);
     });
   });
 
@@ -54,9 +52,33 @@ module.exports = function (app) {
           throw err;
         } else {
           console.log("success");
-        }
+        };
 
-      })
+      });
     });
-  })
-}
+  });
+
+// Creates a DELETE function for saved notes
+  app.delete("/api/notes/:id", function (req, res) {
+
+    notesArray = [];
+
+    let noteId = req.params.id;
+    console.log(noteId);
+
+    fs.readFile(outputPath, "utf8", (err, data) => {
+      if (err) throw err;
+      notesArray = JSON.parse(data);
+
+      const newNotesArray = notesArray.filter(note => note.id != noteId);
+
+      console.log(newNotesArray);
+
+      fs.writeFile(outputPath, JSON.stringify(newNotesArray) + "\t", err => {
+        if (err) throw err;
+        console.log("deleted");
+        res.send(newNotesArray)
+      })
+    })
+ });
+};
